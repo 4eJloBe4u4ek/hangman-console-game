@@ -16,7 +16,7 @@ public class Dictionary {
         loadWordsFromFile(filename);
     }
 
-    public void loadWordsFromFile(String fileName) {
+    private void loadWordsFromFile(String fileName) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
 
