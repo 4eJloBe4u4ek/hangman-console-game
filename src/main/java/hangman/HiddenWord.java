@@ -40,7 +40,7 @@ public class HiddenWord {
             if (guessedLetters.contains(letter)) {
                 sb.append(" ").append(letter);
             } else {
-                sb.append("  _");
+                sb.append(" _");
             }
         }
 
