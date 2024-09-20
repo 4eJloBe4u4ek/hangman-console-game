@@ -214,7 +214,7 @@ public class Hangman {
         if (errorsCount < stages.length) {
             return stages[errorsCount];
         } else {
-            return null;
+            throw new IllegalArgumentException("Количество ошибок > этапов для сложности" + difficulty);
         }
     }
 }
