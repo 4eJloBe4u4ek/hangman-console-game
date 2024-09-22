@@ -12,15 +12,17 @@ public class HiddenWord {
     }
 
     public void setHiddenWord(Word hiddenWord) {
-        this.hiddenWord = hiddenWord;
+        this.hiddenWord =
+            new Word(hiddenWord.getWord(), hiddenWord.getHint(), hiddenWord.getCategory(), hiddenWord.getDifficulty());
     }
 
     public Word getHiddenWord() {
-        return hiddenWord;
+        return new Word(hiddenWord.getWord(), hiddenWord.getHint(), hiddenWord.getCategory(),
+            hiddenWord.getDifficulty());
     }
 
     public Set<Character> getGuessedLetters() {
-        return guessedLetters;
+        return new HashSet<>(guessedLetters);
     }
 
     public boolean setLetter(char letter) {
