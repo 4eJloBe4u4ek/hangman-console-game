@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class Dictionary {
+    private static final int MIN_WORD_LENGTH = 3;
+    private static final int MAX_WORD_LENGTH = 15;
     private List<Word> words;
     private SecureRandom secureRandom;
 
@@ -46,6 +48,11 @@ public class Dictionary {
                     String[] wordAndHint = line.split(":", 2);
                     String word = wordAndHint[0].trim().toLowerCase();
                     String hint = wordAndHint[1].trim().toLowerCase();
+
+                    if (word.length() < MIN_WORD_LENGTH || word.length() > MAX_WORD_LENGTH) {
+                        continue;
+                    }
+
                     words.add(new Word(word, hint, category, difficulty));
                 }
             }
