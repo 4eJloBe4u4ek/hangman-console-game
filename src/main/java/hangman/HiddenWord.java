@@ -24,10 +24,10 @@ public class HiddenWord {
     }
 
     public boolean setLetter(char letter) {
-        letter = Character.toLowerCase(letter);
+        char suggestedLetter = Character.toLowerCase(letter);
 
-        if (hiddenWord.getWord().indexOf(letter) != -1) {
-            guessedLetters.add(letter);
+        if (hiddenWord.getWord().indexOf(suggestedLetter) != -1) {
+            guessedLetters.add(suggestedLetter);
             return true;
         }
 
@@ -38,7 +38,7 @@ public class HiddenWord {
         StringBuilder sb = new StringBuilder();
         for (char letter : hiddenWord.getWord().toCharArray()) {
             if (guessedLetters.contains(letter)) {
-                sb.append(" ").append(letter);
+                sb.append(' ').append(letter);
             } else {
                 sb.append(" _");
             }

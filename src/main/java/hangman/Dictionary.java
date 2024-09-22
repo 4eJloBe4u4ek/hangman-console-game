@@ -3,25 +3,33 @@ package hangman;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Random;
 
 public class Dictionary {
     private List<Word> words;
+    private SecureRandom secureRandom;
 
-    public Dictionary(String filename) {
+    private Dictionary() {
         words = new ArrayList<>();
-        loadWordsFromFile(filename);
+        secureRandom = new SecureRandom();
+    }
+
+    public static Dictionary create(String fileName) {
+        Dictionary dictionary = new Dictionary();
+        dictionary.loadWordsFromFile(fileName);
+        return dictionary;
     }
 
     private void loadWordsFromFile(String fileName) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName, StandardCharsets.UTF_8))) {
             String line;
 
             String category = null;
-            Difficulty difficulty = null;
+            Difficulty difficulty = Difficulty.HARD;
 
             while ((line = reader.readLine()) != null) {
                 if (line.isEmpty()) {
@@ -39,16 +47,15 @@ public class Dictionary {
                     String word = wordAndHint[0].trim().toLowerCase();
                     String hint = wordAndHint[1].trim().toLowerCase();
                     words.add(new Word(word, hint, category, difficulty));
-
                 }
             }
         } catch (IOException e) {
-            System.out.println("Ошибка чтения файла: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
     public List<Word> getWords() {
-        return words;
+        return new ArrayList<>(words);
     }
 
     public Word getRandomWordFromCategory(String category, Difficulty difficulty) {
@@ -64,8 +71,7 @@ public class Dictionary {
             throw new NoSuchElementException(
                 "Нет слов с такой категорией: " + category + " и сложностью: " + difficulty);
         } else {
-            Random random = new Random();
-            return filterWords.get(random.nextInt(filterWords.size()));
+            return filterWords.get(secureRandom.nextInt(filterWords.size()));
         }
     }
 
@@ -81,8 +87,7 @@ public class Dictionary {
         if (filterWords.isEmpty()) {
             throw new NoSuchElementException("Нет слов с такой сложностью: " + difficulty);
         } else {
-            Random random = new Random();
-            return filterWords.get(random.nextInt(filterWords.size()));
+            return filterWords.get(secureRandom.nextInt(filterWords.size()));
         }
     }
 }

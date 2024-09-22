@@ -11,17 +11,11 @@ public class Player {
     }
 
     public Set<Character> getUsedLetters() {
-        return usedLetters;
+        return new HashSet<>(usedLetters);
     }
 
     public boolean setLetter(char letter) {
-        letter = Character.toLowerCase(letter);
-
-        if (!usedLetters.contains(letter)) {
-            usedLetters.add(letter);
-            return true;
-        }
-
-        return false;
+        char suggestedLetter = Character.toLowerCase(letter);
+        return usedLetters.add(suggestedLetter);
     }
 }
