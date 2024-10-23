@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Player {
-    private Set<Character> usedLetters;
+    private final Set<Character> usedLetters;
 
     public Player() {
         usedLetters = new HashSet<>();

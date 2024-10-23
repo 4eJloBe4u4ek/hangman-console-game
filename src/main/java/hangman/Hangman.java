@@ -5,7 +5,7 @@ import java.util.EnumMap;
 import java.util.List;
 
 public class Hangman {
-    private EnumMap<Difficulty, List<String>> hangmanStages;
+    private final EnumMap<Difficulty, List<String>> hangmanStages;
 
     private static final int[] EASY_INDICES = {0, 1, 2, 3, 4, 5, 6, 7};
     private static final int[] MEDIUM_INDICES = {0, 2, 3, 4, 5, 6, 7};

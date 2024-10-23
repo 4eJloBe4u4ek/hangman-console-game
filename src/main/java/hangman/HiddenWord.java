@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class HiddenWord {
     private Word hiddenWord;
-    private Set<Character> guessedLetters;
+    private final Set<Character> guessedLetters;
 
     public HiddenWord() {
         guessedLetters = new HashSet<>();
@@ -13,12 +13,12 @@ public class HiddenWord {
 
     public void setHiddenWord(Word hiddenWord) {
         this.hiddenWord =
-            new Word(hiddenWord.getWord(), hiddenWord.getHint(), hiddenWord.getCategory(), hiddenWord.getDifficulty());
+            new Word(hiddenWord.word(), hiddenWord.hint(), hiddenWord.category(), hiddenWord.difficulty());
     }
 
     public Word getHiddenWord() {
-        return new Word(hiddenWord.getWord(), hiddenWord.getHint(), hiddenWord.getCategory(),
-            hiddenWord.getDifficulty());
+        return new Word(hiddenWord.word(), hiddenWord.hint(), hiddenWord.category(),
+            hiddenWord.difficulty());
     }
 
     public Set<Character> getGuessedLetters() {
@@ -28,7 +28,7 @@ public class HiddenWord {
     public boolean setLetter(char letter) {
         char suggestedLetter = Character.toLowerCase(letter);
 
-        if (hiddenWord.getWord().indexOf(suggestedLetter) != -1) {
+        if (hiddenWord.word().indexOf(suggestedLetter) != -1) {
             guessedLetters.add(suggestedLetter);
             return true;
         }
@@ -38,7 +38,7 @@ public class HiddenWord {
 
     public String hiddenWordStatus() {
         StringBuilder sb = new StringBuilder();
-        for (char letter : hiddenWord.getWord().toCharArray()) {
+        for (char letter : hiddenWord.word().toCharArray()) {
             if (guessedLetters.contains(letter)) {
                 sb.append(' ').append(letter);
             } else {
@@ -50,7 +50,7 @@ public class HiddenWord {
     }
 
     public boolean isCorrectWord() {
-        for (char letter : hiddenWord.getWord().toCharArray()) {
+        for (char letter : hiddenWord.word().toCharArray()) {
             if (!guessedLetters.contains(letter)) {
                 return false;
             }

@@ -17,7 +17,7 @@ public class PlayerTest {
         Player player = new Player();
 
         player.setLetter('q');
-            
+
         Assertions.assertFalse(player.setLetter('q'));
     }
 }

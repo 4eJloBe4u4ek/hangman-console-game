@@ -15,18 +15,17 @@ public class Game {
     private static final int BASE_MAX_ERRORS = 7;
     private static final String SEPARATOR = " - ";
 
-    private PrintStream out;
-    private BufferedReader reader;
-    private Dictionary dictionary;
-    private Player player;
-    private HiddenWord hiddenWord;
-    private Hangman hangman;
+    private final PrintStream out;
+    private final BufferedReader reader;
+    private final Dictionary dictionary;
+    private final Player player;
+    private final HiddenWord hiddenWord;
+    private final Hangman hangman;
     private Difficulty difficulty;
 
-    private SecureRandom secureRandom;
+    private final SecureRandom secureRandom;
     private int errorsCount;
     private int maxErrors;
-    private String category;
 
     public Game(PrintStream out, InputStream in) {
         dictionary = Dictionary.create("src/main/resources/words.txt");
@@ -44,7 +43,7 @@ public class Game {
 
     private void getCategoryFromPlayer(BufferedReader reader) throws IOException {
         List<String> categoryList = dictionary.getWords().stream()
-            .map(Word::getCategory)
+            .map(Word::category)
             .distinct()
             .toList();
 
@@ -53,6 +52,7 @@ public class Game {
             out.println(i + 1 + SEPARATOR + categoryList.get(i));
         }
 
+        String category;
         while (true) {
             String input = reader.readLine();
             if (input == null) {
@@ -80,7 +80,7 @@ public class Game {
             hiddenWord.setHiddenWord(dictionary.getRandomWordFromCategory(category, difficulty));
         } else {
             hiddenWord.setHiddenWord(dictionary.getRandomWord(difficulty));
-            category = hiddenWord.getHiddenWord().getCategory();
+            category = hiddenWord.getHiddenWord().category();
         }
         out.println("Категория: " + category);
     }
@@ -98,7 +98,7 @@ public class Game {
             input = input.toLowerCase().trim();
 
             if ("?".equals(input)) {
-                out.println("Подсказка: " + hiddenWord.getHiddenWord().getHint());
+                out.println("Подсказка: " + hiddenWord.getHiddenWord().hint());
                 out.println("Введите букву:");
                 continue;
             }
@@ -196,7 +196,7 @@ public class Game {
             out.println("Поздравляю! Слово угадано.");
         } else {
             out.println("Вы проиграли :(");
-            out.println("Загаданное слово: " + hiddenWord.getHiddenWord().getWord());
+            out.println("Загаданное слово: " + hiddenWord.getHiddenWord().word());
         }
 
         reader.close();

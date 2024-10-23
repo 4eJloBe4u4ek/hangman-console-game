@@ -24,7 +24,7 @@ public class DictionaryTest {
         Word word = dictionary.getRandomWordFromCategory("спорт", Difficulty.EASY);
 
         Assertions.assertFalse(dictionary.getWords().isEmpty());
-        Assertions.assertTrue(word.getWord().equals("волейбол") || word.getWord().equals("гольф"));
+        Assertions.assertTrue(word.word().equals("волейбол") || word.word().equals("гольф"));
         new java.io.File(testFile).delete();
     }
 
@@ -56,7 +56,7 @@ public class DictionaryTest {
         Word word = dictionary.getRandomWord(Difficulty.EASY);
 
         Assertions.assertFalse(dictionary.getWords().isEmpty());
-        Assertions.assertTrue(word.getWord().equals("волейбол") || word.getWord().equals("гольф"));
+        Assertions.assertTrue(word.word().equals("волейбол") || word.word().equals("гольф"));
         new java.io.File(testFile).delete();
     }
 
